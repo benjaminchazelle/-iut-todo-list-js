@@ -10,7 +10,7 @@ function addTodo() {
 }
 
 function removeTodo(todo) {
-  todo.done = false;
+  todo.done = true;
   render();
 }
 
@@ -24,12 +24,10 @@ let ul = document.querySelector("ul");
 let input = document.querySelector("input");
 let button = document.querySelector("button");
 
-function render() {
-  button.textContent = newLabel
-  
+function render() { 
   ul.innerHTML = "";
 
-  input.onchange = () => updateNewLabel(input.value)
+  input.onkeyup = () => updateNewLabel(input.value)
 
   for (let todo of todos) {
     let item_li = document.createElement("LI");
@@ -40,8 +38,11 @@ function render() {
     item_li.appendChild(item_span);
 
     let item_button = document.createElement("BUTTON");
+    item_button.textContent = "X"
     item_button.onclick = () => removeTodo(todo);
     item_li.appendChild(item_button);
+    
+    ul.appendChild(item_li)
   }
 
   input.value = newLabel;
